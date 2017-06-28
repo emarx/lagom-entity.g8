@@ -9,7 +9,7 @@ import money.haven.crypto.Random
 
 import scala.concurrent.ExecutionContext
 
-object ApexTransferEntity {
+object $name;format="Camel"$Entity {
   def newRef: String = {
     Random.randomReadableStringOfLength(10)
   }
@@ -22,14 +22,14 @@ class $name;format="Camel"$Entity(implicit ec: ExecutionContext) extends Persist
 
   override def initialState: Option[$name;format="Camel"$State] = None
 
-  private val some = Actions()
+  private val none = Actions()
     .onCommand[Create$name;format="Camel"$Command, akka.Done] {
       case (Create$name;format="Camel"$Command(userId), ctx, state) =>
         ctx.thenPersist($name;format="Camel"$CreatedEvent(userId))(_ => ctx.reply(akka.Done))
     }
     .onEvent {
       case ($name;format="Camel"$CreatedEvent(userId), None) =>
-        $name;format="Camel"$State(userId)
+        Some($name;format="Camel"$State(userId))
     }
 
   override def behavior: Behavior = {
